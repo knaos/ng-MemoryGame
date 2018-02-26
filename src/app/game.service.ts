@@ -11,7 +11,7 @@ export class GameService {
   public canFlip = true;
 
   constructor() {
-    this.generateGame(10);
+    this.generateGame(2);
     this.cards = this.shuffleArray(this.cards);
   }
 
@@ -43,7 +43,7 @@ export class GameService {
       card.flipped = false;
     });
 
-    this.flippedCards = [];
+
   }
 
   public flip(card: Card) {
@@ -58,13 +58,16 @@ export class GameService {
         this.flippedCards.forEach(c => {
           c.guessed = true;
         });
-      }
-      this.canFlip = false;
-      setTimeout(() => {
-        this.closeUnguessed();
-        this.canFlip = true;
+      } else {
+        this.canFlip = false;
+        setTimeout(() => {
+          this.closeUnguessed();
+          this.canFlip = true;
 
-      }, 1000);
+        }, 1000);
+      }
+
+      this.flippedCards = [];
     }
 
   }

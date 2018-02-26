@@ -5,7 +5,7 @@
   </h1>
   <h3>Pairs left: {{ pairsLeft }}</h3>
   <h2 *ngIf="gameWon">Congratulations, you win!</h2>
-  
+
   <div class="cards">
     <app-card *ngFor="let card of cards" [card]="card" (flipped)="flipped($event)"></app-card>
   </div>

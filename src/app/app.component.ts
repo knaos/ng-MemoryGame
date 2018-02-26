@@ -27,7 +27,6 @@ export class AppComponent {
   }
 
   public flipped(card: Card) {
-    console.log(card);
     this.gameService.flip(card);
     this.updateStats();
   }
