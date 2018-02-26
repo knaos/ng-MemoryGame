@@ -9,6 +9,7 @@ export class GameService {
   public guessedPairs: Number = 0;
   public flippedCards: Card[] = [];
   public canFlip = true;
+  public turns = 0;
 
   constructor() {
     this.generateGame(10);
@@ -19,9 +20,9 @@ export class GameService {
     return of(this.cards);
   }
 
-  public generateGame(pairsNumber: number) {
-    // fill board with two cards each
-    for (let i = 1; i <= pairsNumber; i++) {
+  public generateGame(numberOfPairs: number) {
+    // fill board with two cards of each number
+    for (let i = 1; i <= numberOfPairs; i++) {
       this.cards.push({
         value: i.toString(),
         flipped: false,
@@ -42,8 +43,6 @@ export class GameService {
       }
       card.flipped = false;
     });
-
-
   }
 
   public flip(card: Card) {
@@ -67,12 +66,12 @@ export class GameService {
         }, 1000);
       }
 
+      this.turns++;
       this.flippedCards = [];
     }
-
   }
 
-  public isPair() {
+  private isPair() {
     return this.flippedCards[0].value === this.flippedCards[1].value ? true : false;
   }
 

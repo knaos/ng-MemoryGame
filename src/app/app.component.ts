@@ -11,15 +11,12 @@ export class AppComponent {
   public cards: Array<Card> = [];
   public pairsLeft: Number;
   public gameWon: boolean;
-  /**
-   *
-   */
+
   constructor(public gameService: GameService) {
     this.gameService.getCards().subscribe(cards => {
       this.cards = cards;
     });
     this.updateStats();
-
   }
 
   public closeUnguessed() {
@@ -31,6 +28,8 @@ export class AppComponent {
     this.updateStats();
   }
 
+  // Used to generate new state for stats(pairs left, turns taken, game result)
+  // TODO: use store like Redux for state management
   private updateStats() {
     const pairsGuessed: number = this.gameService.cards.filter(c => c.guessed).length;
     this.pairsLeft = (this.gameService.cards.length - pairsGuessed) / 2;
