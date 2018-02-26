@@ -1,5 +1,5 @@
-<div class="card">
-  <div class="card-value">
+<div class="card" (click)="flipCard()">
+  <div class="card-value" [ngClass]="{flipped: card.flipped}">
     {{ card.value }}
   </div>
 </div>

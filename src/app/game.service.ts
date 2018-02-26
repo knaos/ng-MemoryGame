@@ -25,6 +25,16 @@ export class GameService {
     }
   }
 
+  public closeUnguessed() {
+    this.grid.forEach(card => {
+      if (card.guessed) {
+        return;
+      }
+
+      card.flipped = false;
+    });
+  }
+
   private shuffleArray(arr: any[]) {
     const newArr = arr.slice();
     for (let i = newArr.length; i; i -= 1) {

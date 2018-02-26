@@ -14,4 +14,12 @@ export class CardComponent implements OnInit {
   ngOnInit() {
   }
 
+  flipCard() {
+    if (this.card.flipped) {
+      return;
+    }
+
+    this.card.flipped = true;
+  }
+
 }

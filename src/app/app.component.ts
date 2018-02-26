@@ -13,7 +13,11 @@ export class AppComponent {
   /**
    *
    */
-  constructor(gameService: GameService) {
+  constructor(public gameService: GameService) {
     this.cards = gameService.grid;
+  }
+
+  public closeUnguessed() {
+    this.gameService.closeUnguessed();
   }
 }
