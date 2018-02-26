@@ -19,7 +19,7 @@ export class CardComponent implements OnInit {
     if (this.card.flipped) {
       return;
     }
-    this.card.flipped = true;
+    // this.card.flipped = true;
     this.flipped.emit(this.card);
   }
 

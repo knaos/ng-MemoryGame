@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class GameService {
 
-  public grid: Array<Card> = [];
+  public cards: Array<Card> = [];
   public guessedPairs: Number = 0;
   public flippedCards: Card[] = [];
+  public canFlip = true;
 
   constructor() {
     this.generateGame(10);
-    this.grid = this.shuffleArray(this.grid);
+    this.cards = this.shuffleArray(this.cards);
+  }
+
+  public getCards() {
+    return of(this.cards);
   }
 
   public generateGame(pairsNumber: number) {
     // fill board with two cards each
     for (let i = 1; i <= pairsNumber; i++) {
-      this.grid.push({
+      this.cards.push({
         value: i.toString(),
         flipped: false,
         guessed: false
       });
-      this.grid.push({
+      this.cards.push({
         value: i.toString(),
         flipped: false,
         guessed: false
@@ -29,7 +36,7 @@ export class GameService {
   }
 
   public closeUnguessed() {
-    this.grid.forEach(card => {
+    this.cards.forEach(card => {
       if (card.guessed) {
         return;
       }
@@ -40,17 +47,26 @@ export class GameService {
   }
 
   public flip(card: Card) {
+    if (!this.canFlip) {
+      return;
+    }
+    card.flipped = true;
+    this.flippedCards.push(card);
+
     if (this.flippedCards.length === 2) {
       if (this.isPair()) {
         this.flippedCards.forEach(c => {
           c.guessed = true;
         });
       }
-      this.closeUnguessed();
+      this.canFlip = false;
+      setTimeout(() => {
+        this.closeUnguessed();
+        this.canFlip = true;
+
+      }, 1000);
     }
 
-    card.flipped = true;
-    this.flippedCards.push(card);
   }
 
   public isPair() {

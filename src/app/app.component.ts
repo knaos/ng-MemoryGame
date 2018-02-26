@@ -8,13 +8,18 @@ import { GameService, Card } from './game.service';
 })
 export class AppComponent {
   title = 'MemoryGame';
-
-  public cards: Array<Card>;
+  public cards: Array<Card> = [];
+  public pairsLeft: Number;
+  public gameWon: boolean;
   /**
    *
    */
   constructor(public gameService: GameService) {
-    this.cards = gameService.grid;
+    this.gameService.getCards().subscribe(cards => {
+      this.cards = cards;
+    });
+    this.updateStats();
+
   }
 
   public closeUnguessed() {
@@ -23,6 +28,16 @@ export class AppComponent {
 
   public flipped(card: Card) {
     console.log(card);
-    this.gameService.flip(card)
+    this.gameService.flip(card);
+    this.updateStats();
+  }
+
+  private updateStats() {
+    const pairsGuessed: number = this.gameService.cards.filter(c => c.guessed).length;
+    this.pairsLeft = (this.gameService.cards.length - pairsGuessed) / 2;
+
+    if (this.pairsLeft === 0) {
+      this.gameWon = true;
+    }
   }
 }
