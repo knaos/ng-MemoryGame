@@ -22,3 +22,8 @@
 .flipped.card-value {
     display: block;
 }
+
+.guessed.card-value {
+    display: block;
+    background: #4ca940;
+}
