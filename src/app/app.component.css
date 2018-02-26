@@ -1,0 +1,9 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+}
+
+body * {
+    box-sizing: border-box;
+}
