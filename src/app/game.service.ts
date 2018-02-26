@@ -11,7 +11,7 @@ export class GameService {
   public canFlip = true;
 
   constructor() {
-    this.generateGame(2);
+    this.generateGame(10);
     this.cards = this.shuffleArray(this.cards);
   }
 
