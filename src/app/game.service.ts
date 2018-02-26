@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
 export class GameService {
 
   public grid: Array<Card> = [];
+  public guessedPairs: Number = 0;
+  public flippedCards: Card[] = [];
+
   constructor() {
     this.generateGame(10);
     this.grid = this.shuffleArray(this.grid);
@@ -30,9 +33,28 @@ export class GameService {
       if (card.guessed) {
         return;
       }
-
       card.flipped = false;
     });
+
+    this.flippedCards = [];
+  }
+
+  public flip(card: Card) {
+    if (this.flippedCards.length === 2) {
+      if (this.isPair()) {
+        this.flippedCards.forEach(c => {
+          c.guessed = true;
+        });
+      }
+      this.closeUnguessed();
+    }
+
+    card.flipped = true;
+    this.flippedCards.push(card);
+  }
+
+  public isPair() {
+    return this.flippedCards[0].value === this.flippedCards[1].value ? true : false;
   }
 
   private shuffleArray(arr: any[]) {

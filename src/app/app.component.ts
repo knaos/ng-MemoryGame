@@ -20,4 +20,9 @@ export class AppComponent {
   public closeUnguessed() {
     this.gameService.closeUnguessed();
   }
+
+  public flipped(card: Card) {
+    console.log(card);
+    this.gameService.flip(card)
+  }
 }
